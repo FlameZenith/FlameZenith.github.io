@@ -155,5 +155,9 @@
 		});
 	}
 
-	document.addEventListener('astro:page-load', initSearch);
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initSearch);
+	} else {
+		initSearch();
+	}
 </script>
