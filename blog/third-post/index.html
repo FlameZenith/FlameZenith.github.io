@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-bvzihdzo> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="Bhavesh Panjala" href="https://bhaveshpanjala.dev/rss.xml"><meta name="generator" content="Astro v6.0.4"><!-- Canonical URL --><link rel="canonical" href="https://bhaveshpanjala.dev/blog/third-post/"><!-- Primary Meta Tags --><title>System Design 101: How to Think About Scalable Systems</title><meta name="title" content="System Design 101: How to Think About Scalable Systems"><meta name="description" content="A beginner-friendly introduction to system design concepts — from load balancers to databases, caching, and message queues."><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://bhaveshpanjala.dev/blog/third-post/"><meta property="og:title" content="System Design 101: How to Think About Scalable Systems"><meta property="og:description" content="A beginner-friendly introduction to system design concepts — from load balancers to databases, caching, and message queues."><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://bhaveshpanjala.dev/blog/third-post/"><meta property="twitter:title" content="System Design 101: How to Think About Scalable Systems"><meta property="twitter:description" content="A beginner-friendly introduction to system design concepts — from load balancers to databases, caching, and message queues."><!-- Pagefind --><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><!-- Theme initialization (prevent flash) --><script>
+	(function() {
+		const theme = localStorage.getItem('theme') ||
+			(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+		document.documentElement.setAttribute('data-theme', theme);
+	})();
+</script><link rel="stylesheet" href="/_astro/Header.DOArC7_n.css">
+<style>main[data-astro-cid-bvzihdzo]{width:calc(100% - 2em);max-width:100%;margin:0}.prose[data-astro-cid-bvzihdzo]{width:720px;max-width:calc(100% - 2em);margin:auto;padding:2em 1em;color:var(--text)}.title[data-astro-cid-bvzihdzo]{margin-bottom:1.5em;padding:1em 0;text-align:center}.title[data-astro-cid-bvzihdzo] h1[data-astro-cid-bvzihdzo]{margin:0 0 .5em;font-size:2.2em;line-height:1.2}.date[data-astro-cid-bvzihdzo]{margin-bottom:.5em;color:var(--text-muted);font-size:.85em}.last-updated-on[data-astro-cid-bvzihdzo]{font-style:italic}.back-link[data-astro-cid-bvzihdzo]{display:inline-flex;align-items:center;gap:.3em;color:var(--text-muted);font-size:.85em;text-decoration:none;margin-bottom:1em;transition:color var(--transition)}.back-link[data-astro-cid-bvzihdzo]:hover{color:var(--accent)}
+</style></head> <body data-astro-cid-bvzihdzo> <header data-astro-cid-3ef6ksr2> <nav data-astro-cid-3ef6ksr2> <a href="/" class="site-title" data-astro-cid-3ef6ksr2>Bhavesh Panjala</a> <div class="nav-links" data-astro-cid-3ef6ksr2> <a href="/" data-astro-cid-3ef6ksr2="true" data-astro-cid-eimmu3lg> Home </a> <a href="/blog" class="active" data-astro-cid-3ef6ksr2="true" data-astro-cid-eimmu3lg> Blog </a> <a href="/about" data-astro-cid-3ef6ksr2="true" data-astro-cid-eimmu3lg> About </a> </div> <div class="nav-actions" data-astro-cid-3ef6ksr2> <button data-search-trigger type="button" aria-label="Search" class="search-btn" title="Search (Ctrl+K)" data-astro-cid-3ef6ksr2> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-3ef6ksr2> <circle cx="11" cy="11" r="8" data-astro-cid-3ef6ksr2></circle> <line x1="21" y1="21" x2="16.65" y2="16.65" data-astro-cid-3ef6ksr2></line> </svg> </button> <div class="social-links" data-astro-cid-3ef6ksr2> <a href="https://github.com/FlameZenith" target="_blank" aria-label="GitHub" data-astro-cid-3ef6ksr2> <svg viewBox="0 0 16 16" aria-hidden="true" width="20" height="20" data-astro-cid-3ef6ksr2><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" data-astro-cid-3ef6ksr2></path></svg> </a> <a href="https://www.linkedin.com/in/bhavesh-panjala-a2488030a/" target="_blank" aria-label="LinkedIn" data-astro-cid-3ef6ksr2> <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" data-astro-cid-3ef6ksr2><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" data-astro-cid-3ef6ksr2></path></svg> </a> </div> <button id="theme-toggle" type="button" aria-label="Toggle dark/light mode" title="Toggle theme" data-astro-cid-x3pjskd3> <svg class="icon sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-x3pjskd3> <circle cx="12" cy="12" r="5" data-astro-cid-x3pjskd3></circle> <line x1="12" y1="1" x2="12" y2="3" data-astro-cid-x3pjskd3></line> <line x1="12" y1="21" x2="12" y2="23" data-astro-cid-x3pjskd3></line> <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" data-astro-cid-x3pjskd3></line> <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" data-astro-cid-x3pjskd3></line> <line x1="1" y1="12" x2="3" y2="12" data-astro-cid-x3pjskd3></line> <line x1="21" y1="12" x2="23" y2="12" data-astro-cid-x3pjskd3></line> <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" data-astro-cid-x3pjskd3></line> <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" data-astro-cid-x3pjskd3></line> </svg> <svg class="icon moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-x3pjskd3> <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" data-astro-cid-x3pjskd3></path> </svg> </button>  <script>
+	(function() {
+		function getThemePreference() {
+			if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+				return localStorage.getItem('theme');
+			}
+			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+		}
+
+		function setTheme(theme) {
+			document.documentElement.setAttribute('data-theme', theme);
+			localStorage.setItem('theme', theme);
+		}
+
+		// Set initial theme immediately to prevent flash
+		setTheme(getThemePreference());
+
+		// After DOM is ready, attach click handler
+		document.addEventListener('astro:page-load', () => {
+			const toggle = document.getElementById('theme-toggle');
+			if (toggle) {
+				toggle.addEventListener('click', () => {
+					const current = document.documentElement.getAttribute('data-theme');
+					setTheme(current === 'dark' ? 'light' : 'dark');
+				});
+			}
+		});
+	})();
+</script> </div> </nav> </header> <div id="search-overlay" class="search-overlay" aria-hidden="true" data-astro-cid-qk3db3zz> <div class="search-modal" role="dialog" aria-label="Search" data-astro-cid-qk3db3zz> <div class="search-modal-header" data-astro-cid-qk3db3zz> <span class="search-shortcut" data-astro-cid-qk3db3zz>ESC to close</span> <button id="search-close" type="button" aria-label="Close search" class="search-close-btn" data-astro-cid-qk3db3zz> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-qk3db3zz> <line x1="18" y1="6" x2="6" y2="18" data-astro-cid-qk3db3zz></line> <line x1="6" y1="6" x2="18" y2="18" data-astro-cid-qk3db3zz></line> </svg> </button> </div> <div id="pagefind-container" data-astro-cid-qk3db3zz></div> </div> </div>  <script>
+	function initSearch() {
+		const overlay = document.getElementById('search-overlay');
+		const closeBtn = document.getElementById('search-close');
+		const container = document.getElementById('pagefind-container');
+		let pagefindLoaded = false;
+
+		function openSearch() {
+			if (!overlay) return;
+			overlay.classList.add('active');
+			overlay.setAttribute('aria-hidden', 'false');
+			document.body.style.overflow = 'hidden';
+
+			if (!pagefindLoaded && container) {
+				pagefindLoaded = true;
+				loadPagefind();
+			}
+
+			// Focus the search input after Pagefind loads
+			setTimeout(() => {
+				const input = container?.querySelector('input');
+				if (input) input.focus();
+			}, 100);
+		}
+
+		function closeSearch() {
+			if (!overlay) return;
+			overlay.classList.remove('active');
+			overlay.setAttribute('aria-hidden', 'true');
+			document.body.style.overflow = '';
+		}
+
+		async function loadPagefind() {
+			try {
+				const pagefind = await import('/pagefind/pagefind-ui.js');
+				new pagefind.PagefindUI({
+					element: '#pagefind-container',
+					showSubResults: true,
+					showImages: false,
+				});
+			} catch (e) {
+				if (container) {
+					container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 2em;">Search is available after building the site.<br><code>npm run build</code></p>';
+				}
+			}
+		}
+
+		// Search button triggers
+		document.querySelectorAll('[data-search-trigger]').forEach(btn => {
+			btn.addEventListener('click', openSearch);
+		});
+
+		// Close button
+		if (closeBtn) closeBtn.addEventListener('click', closeSearch);
+
+		// Click outside to close
+		if (overlay) {
+			overlay.addEventListener('click', (e) => {
+				if (e.target === overlay) closeSearch();
+			});
+		}
+
+		// Keyboard shortcuts
+		document.addEventListener('keydown', (e) => {
+			if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+				e.preventDefault();
+				openSearch();
+			}
+			if (e.key === 'Escape') {
+				closeSearch();
+			}
+		});
+	}
+
+	document.addEventListener('astro:page-load', initSearch);
+</script> <main data-astro-cid-bvzihdzo> <article data-astro-cid-bvzihdzo> <div class="prose" data-astro-cid-bvzihdzo> <a href="/blog" class="back-link" data-astro-cid-bvzihdzo>← Back to all posts</a> <div class="title" data-astro-cid-bvzihdzo> <div class="date" data-astro-cid-bvzihdzo> <time datetime="2026-02-20T00:00:00.000Z"> Feb 20, 2026 </time>  </div> <h1 data-astro-cid-bvzihdzo>System Design 101: How to Think About Scalable Systems</h1> <hr data-astro-cid-bvzihdzo> </div>  <p>System design can feel overwhelming at first. There are dozens of technologies, patterns, and trade-offs to consider. But at its core, system design is about answering one question: <strong>How do you build something that works reliably at scale?</strong></p>
+<p>Here’s a framework for thinking through system design problems.</p>
+<h2 id="start-with-requirements">Start With Requirements</h2>
+<p>Before drawing any boxes, clarify what you’re building:</p>
+<ul>
+<li><strong>Functional requirements</strong> — What does the system do? (e.g., “Users can post tweets and follow other users”)</li>
+<li><strong>Non-functional requirements</strong> — How well does it need to perform? (e.g., “Support 100M daily active users with &#x3C; 200ms latency”)</li>
+<li><strong>Scale estimates</strong> — Back-of-the-envelope math. How many requests per second? How much storage per year?</li>
+</ul>
+<p>Getting these right saves you from over-engineering or under-provisioning.</p>
+<h2 id="the-building-blocks">The Building Blocks</h2>
+<p>Every large-scale system is composed of a few fundamental components:</p>
+<h3 id="load-balancers">Load Balancers</h3>
+<p>Distribute incoming requests across multiple servers. Without them, a single server becomes a bottleneck and a single point of failure.</p>
+<ul>
+<li><strong>Layer 4 (TCP)</strong> — fast, routes based on IP/port</li>
+<li><strong>Layer 7 (HTTP)</strong> — smarter, can route based on URL path, headers, cookies</li>
+</ul>
+<h3 id="application-servers">Application Servers</h3>
+<p>Stateless services that handle business logic. The key word is <strong>stateless</strong> — any server can handle any request. Session state goes in a cache or database, not in server memory.</p>
+<h3 id="databases">Databases</h3>
+<p>The heart of most systems. Key decision: <strong>SQL vs NoSQL</strong>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Factor</th><th>SQL (PostgreSQL, MySQL)</th><th>NoSQL (MongoDB, Cassandra)</th></tr></thead><tbody><tr><td>Schema</td><td>Rigid, structured</td><td>Flexible, schemaless</td></tr><tr><td>Scaling</td><td>Vertical (mostly)</td><td>Horizontal (built-in)</td></tr><tr><td>Consistency</td><td>Strong (ACID)</td><td>Eventual (BASE)</td></tr><tr><td>Best for</td><td>Relationships, transactions</td><td>High write throughput, flexible data</td></tr></tbody></table>
+<p>In practice, many systems use <strong>both</strong> — SQL for transactional data, NoSQL for analytics or session storage.</p>
+<h3 id="caching">Caching</h3>
+<p>The fastest way to improve performance. Cache frequently-accessed data in memory using <strong>Redis</strong> or <strong>Memcached</strong>.</p>
+<p>Common strategies:</p>
+<ul>
+<li><strong>Cache-aside</strong> — App checks cache first, falls back to DB, then populates cache</li>
+<li><strong>Write-through</strong> — App writes to cache and DB simultaneously</li>
+<li><strong>Write-behind</strong> — App writes to cache, which async-writes to DB</li>
+</ul>
+<p><strong>Cache invalidation</strong> is famously one of the hardest problems in CS. Keep TTLs reasonable and have a strategy for stale data.</p>
+<h3 id="message-queues">Message Queues</h3>
+<p>Decouple producers and consumers with queues like <strong>Kafka</strong> or <strong>RabbitMQ</strong>. Instead of service A calling service B directly, A publishes a message, and B processes it asynchronously.</p>
+<p>Use cases:</p>
+<ul>
+<li>Email/notification sending</li>
+<li>Order processing pipelines</li>
+<li>Event-driven architectures</li>
+<li>Log aggregation</li>
+</ul>
+<h2 id="key-design-patterns">Key Design Patterns</h2>
+<h3 id="database-sharding">Database Sharding</h3>
+<p>Split data across multiple databases by a shard key (e.g., user ID). Each shard holds a subset of the data. This enables <strong>horizontal scaling</strong> of your database layer.</p>
+<h3 id="read-replicas">Read Replicas</h3>
+<p>Route read queries to replica databases, keeping the primary for writes. Works well when reads vastly outnumber writes (which is common — think Twitter’s timeline).</p>
+<h3 id="rate-limiting">Rate Limiting</h3>
+<p>Protect your system from abuse. Common algorithms: token bucket, sliding window counter, leaky bucket. Implement at the API gateway level.</p>
+<h3 id="circuit-breaker">Circuit Breaker</h3>
+<p>If a downstream service is failing, stop calling it temporarily instead of cascading failures. Libraries like Resilience4j (Java) make this easy.</p>
+<h2 id="a-simple-design-template">A Simple Design Template</h2>
+<p>When approaching any system design problem, follow this structure:</p>
+<ol>
+<li><strong>Requirements</strong> — functional and non-functional</li>
+<li><strong>High-level design</strong> — major components and their interactions</li>
+<li><strong>Deep dives</strong> — database schema, API design, caching strategy</li>
+<li><strong>Trade-offs</strong> — what you’d change at 10x or 100x scale</li>
+<li><strong>Bottlenecks</strong> — identify single points of failure and how to mitigate</li>
+</ol>
+<h2 id="keep-learning">Keep Learning</h2>
+<p>System design is a skill that grows with experience. Start by studying real-world architectures — how does Netflix handle streaming? How does Uber match riders to drivers? How does Google index the web?</p>
+<p>Every system you study adds patterns to your toolkit. <strong>The goal isn’t to memorize solutions — it’s to build intuition.</strong></p>  </div> </article> </main> <footer data-astro-cid-sz7xmlte> <div class="footer-content" data-astro-cid-sz7xmlte> <p class="copyright" data-astro-cid-sz7xmlte>&copy; 2026 Bhavesh Panjala. All rights reserved.</p> <div class="social-links" data-astro-cid-sz7xmlte> <a href="https://github.com/FlameZenith" target="_blank" aria-label="GitHub" data-astro-cid-sz7xmlte> <svg viewBox="0 0 16 16" aria-hidden="true" width="18" height="18" data-astro-cid-sz7xmlte><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" data-astro-cid-sz7xmlte></path></svg> </a> <a href="https://www.linkedin.com/in/bhavesh-panjala-a2488030a/" target="_blank" aria-label="LinkedIn" data-astro-cid-sz7xmlte> <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" data-astro-cid-sz7xmlte><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" data-astro-cid-sz7xmlte></path></svg> </a> <a href="https://leetcode.com/u/bhaveshpanjala/" target="_blank" aria-label="LeetCode" data-astro-cid-sz7xmlte> <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" data-astro-cid-sz7xmlte><path fill="currentColor" d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" data-astro-cid-sz7xmlte></path></svg> </a> <a href="https://codeforces.com/profile/Flame_Zenith" target="_blank" aria-label="Codeforces" data-astro-cid-sz7xmlte> <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" data-astro-cid-sz7xmlte><path fill="currentColor" d="M4.5 7.5C5.328 7.5 6 8.172 6 9v10.5c0 .828-.672 1.5-1.5 1.5h-3C.672 21 0 20.328 0 19.5V9c0-.828.672-1.5 1.5-1.5h3zm9-4.5c.828 0 1.5.672 1.5 1.5v15c0 .828-.672 1.5-1.5 1.5h-3c-.828 0-1.5-.672-1.5-1.5v-15c0-.828.672-1.5 1.5-1.5h3zm9 7.5c.828 0 1.5.672 1.5 1.5v7.5c0 .828-.672 1.5-1.5 1.5h-3c-.828 0-1.5-.672-1.5-1.5V12c0-.828.672-1.5 1.5-1.5h3z" data-astro-cid-sz7xmlte></path></svg> </a> </div> </div> </footer> </body></html>
