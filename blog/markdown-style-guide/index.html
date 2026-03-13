@@ -23,8 +23,7 @@
 		// Set initial theme immediately to prevent flash
 		setTheme(getThemePreference());
 
-		// After DOM is ready, attach click handler
-		document.addEventListener('astro:page-load', () => {
+		function setup() {
 			const toggle = document.getElementById('theme-toggle');
 			if (toggle) {
 				toggle.addEventListener('click', () => {
@@ -32,7 +31,13 @@
 					setTheme(current === 'dark' ? 'light' : 'dark');
 				});
 			}
-		});
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', setup);
+		} else {
+			setup();
+		}
 	})();
 </script> </div> </nav> </header> <div id="search-overlay" class="search-overlay" aria-hidden="true" data-astro-cid-qk3db3zz> <div class="search-modal" role="dialog" aria-label="Search" data-astro-cid-qk3db3zz> <div class="search-modal-header" data-astro-cid-qk3db3zz> <span class="search-shortcut" data-astro-cid-qk3db3zz>ESC to close</span> <button id="search-close" type="button" aria-label="Close search" class="search-close-btn" data-astro-cid-qk3db3zz> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-qk3db3zz> <line x1="18" y1="6" x2="6" y2="18" data-astro-cid-qk3db3zz></line> <line x1="6" y1="6" x2="18" y2="18" data-astro-cid-qk3db3zz></line> </svg> </button> </div> <div id="pagefind-container" data-astro-cid-qk3db3zz></div> </div> </div>  <script>
 	function initSearch() {
@@ -108,7 +113,11 @@
 		});
 	}
 
-	document.addEventListener('astro:page-load', initSearch);
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initSearch);
+	} else {
+		initSearch();
+	}
 </script> <main data-astro-cid-bvzihdzo> <article data-astro-cid-bvzihdzo> <div class="prose" data-astro-cid-bvzihdzo> <a href="/blog" class="back-link" data-astro-cid-bvzihdzo>← Back to all posts</a> <div class="title" data-astro-cid-bvzihdzo> <div class="date" data-astro-cid-bvzihdzo> <time datetime="2026-02-10T00:00:00.000Z"> Feb 10, 2026 </time>  </div> <h1 data-astro-cid-bvzihdzo>My Competitive Programming Journey: Tips and Strategies</h1> <hr data-astro-cid-bvzihdzo> </div>  <p>I started competitive programming out of curiosity and stayed because it made me a significantly better engineer. Here’s what I’ve learned along the way — the strategies that worked, the mistakes I made, and advice for anyone starting out.</p>
 <h2 id="why-competitive-programming">Why Competitive Programming?</h2>
 <p>CP teaches you to think <strong>fast, clearly, and under constraints</strong>. In a contest, you have 2 hours to solve 5-6 problems of increasing difficulty. There’s no Stack Overflow, no autocomplete, no AI assistant — just you and the problem.</p>
