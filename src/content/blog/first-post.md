@@ -1,16 +1,53 @@
 ---
-title: 'First post'
-description: 'Lorem ipsum dolor sit amet'
-pubDate: 'Jul 08 2022'
-heroImage: '../../assets/blog-placeholder-3.jpg'
+title: 'Why Every Developer Should Learn Data Structures and Algorithms'
+description: 'DSA is more than interview prep — it shapes how you think about problems, write efficient code, and build better software.'
+pubDate: 'Mar 10 2026'
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+If there's one thing I'd tell every aspiring software engineer, it's this: **invest time in learning Data Structures and Algorithms**. Not just for interviews — but because it fundamentally changes how you approach problems.
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+## It's Not Just About Interviews
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+Sure, DSA is the backbone of technical interviews at most companies. But the real value goes deeper than that. When you understand how a hash map works internally, you make better decisions about when to use one. When you understand graph traversal, you can model real-world problems — from network routing to social media recommendations — in ways that would never occur to you otherwise.
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+## The Building Blocks
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+Here's a practical roadmap that worked for me:
+
+### Phase 1: Foundations
+- **Arrays and Strings** — two pointers, sliding window, prefix sums
+- **Linked Lists** — reversal, cycle detection, merge operations
+- **Stacks and Queues** — monotonic stacks, BFS/DFS foundations
+- **Hashing** — frequency counting, anagram detection, two-sum patterns
+
+### Phase 2: Core Algorithms
+- **Sorting** — understand merge sort and quicksort deeply, not just their APIs
+- **Binary Search** — on sorted arrays, on answer spaces, on rotated arrays
+- **Recursion and Backtracking** — permutations, combinations, constraint satisfaction
+- **Trees** — traversals, BST operations, lowest common ancestor
+
+### Phase 3: Advanced Topics
+- **Dynamic Programming** — start with 1D (climbing stairs, house robber), then move to 2D
+- **Graphs** — BFS, DFS, Dijkstra's, topological sort, union-find
+- **Greedy Algorithms** — activity selection, interval scheduling
+- **Tries and Segment Trees** — for string and range query problems
+
+## How to Practice Effectively
+
+1. **Don't just solve — understand.** After solving a problem, ask: *Why does this approach work? What's the time/space complexity? Can I optimize it?*
+
+2. **Learn patterns, not problems.** There are ~20 core patterns that cover 90% of problems. Focus on recognizing which pattern applies.
+
+3. **Revisit problems.** If you solved a problem with hints, come back in a week and solve it from scratch.
+
+4. **Compete.** Platforms like [Codeforces](https://codeforces.com) and timed LeetCode contests push you to think under pressure — an invaluable skill.
+
+## The Real-World Payoff
+
+In my Spring Boot projects, DSA knowledge has helped me:
+- Choose the right data structure for caching strategies
+- Optimize database query patterns
+- Design efficient API response pagination
+- Build better search and filtering logic
+
+**DSA isn't a checkbox — it's a superpower.** The earlier you start, the more natural it becomes.

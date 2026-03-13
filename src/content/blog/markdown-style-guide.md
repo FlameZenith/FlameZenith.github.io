@@ -1,214 +1,79 @@
 ---
-title: 'Markdown Style Guide'
-description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
-pubDate: 'Jun 19 2024'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+title: 'My Competitive Programming Journey: Tips and Strategies'
+description: 'Lessons from grinding Codeforces and LeetCode — how competitive programming sharpened my problem-solving skills and what I wish I knew earlier.'
+pubDate: 'Feb 10 2026'
 ---
 
-Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
+I started competitive programming out of curiosity and stayed because it made me a significantly better engineer. Here's what I've learned along the way — the strategies that worked, the mistakes I made, and advice for anyone starting out.
 
-## Headings
+## Why Competitive Programming?
 
-The following HTML `<h1>`—`<h6>` elements represent six levels of section headings. `<h1>` is the highest section level while `<h6>` is the lowest.
+CP teaches you to think **fast, clearly, and under constraints**. In a contest, you have 2 hours to solve 5-6 problems of increasing difficulty. There's no Stack Overflow, no autocomplete, no AI assistant — just you and the problem.
 
-# H1
+This pressure forces you to develop skills that transfer directly to real-world engineering:
+- **Breaking complex problems into smaller subproblems**
+- **Estimating time complexity before writing code**
+- **Debugging systematically** when your solution gets Wrong Answer
+- **Knowing when your approach won't work** and pivoting quickly
 
-## H2
+## My Platform Setup
 
-### H3
+I use two platforms for different purposes:
 
-#### H4
+### Codeforces
+Best for: **Competitive contests and learning algorithmic thinking**
+- Rated contests every week (Div 1, 2, 3, 4)
+- Problem difficulty is well-calibrated
+- The editorial + community solutions are excellent for learning
+- Focus: math-heavy problems, constructive algorithms, number theory
 
-##### H5
+### LeetCode
+Best for: **Interview preparation and pattern recognition**
+- Problems are tagged by company and topic
+- Great for practicing specific patterns (sliding window, DP, etc.)
+- Discussion section often has optimal solutions with explanations
+- Focus: practical DSA patterns used in technical interviews
 
-###### H6
+## Strategies That Actually Work
 
-## Paragraph
+### 1. Solve by Topic, Then by Difficulty
+Don't jump to random problems. Pick a topic (say, binary search), solve 15-20 problems of increasing difficulty, then move on. This builds deep pattern recognition.
 
-Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.
+### 2. Upsolve Religiously
+After every contest, solve the problems you couldn't solve during the contest. This is where the real learning happens. Read the editorial, understand the approach, then implement it yourself **without looking at the solution**.
 
-Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.
+### 3. Learn to Identify Time Complexity Ceilings
+Before coding, calculate the maximum input constraints:
+- `N ≤ 10^3` → O(N³) is fine
+- `N ≤ 10^5` → O(N log N) needed
+- `N ≤ 10^7` → O(N) or bust
+- `N ≤ 10^18` → Math/binary search/matrix exponentiation
 
-## Images
+This alone saves hours of debugging TLE solutions.
 
-### Syntax
+### 4. Build a Template Library
+Maintain a personal library of well-tested implementations:
+- **Graph algorithms** — BFS, DFS, Dijkstra, DSU
+- **Data structures** — segment tree, Fenwick tree, sparse table
+- **Math** — modular arithmetic, sieve of Eratosthenes, fast exponentiation
+- **String algorithms** — KMP, Z-function, hashing
 
-```markdown
-![Alt text](./full/or/relative/path/of/image)
-```
+During contests, you want to spend your time on problem-solving, not re-implementing standard algorithms.
 
-### Output
+### 5. Participate Consistently
+Consistency beats intensity. Solving 2-3 problems daily for months is far more effective than grinding 50 problems in a weekend and burning out.
 
-![blog placeholder](../../assets/blog-placeholder-about.jpg)
+## Common Mistakes to Avoid
 
-## Blockquotes
+- **Not reading the problem carefully** — I've lost countless points to misreading constraints
+- **Overcomplicating solutions** — the intended solution is often simpler than you think
+- **Ignoring edge cases** — empty arrays, single elements, maximum values, negative numbers
+- **Not practicing implementation speed** — knowing the algorithm isn't enough; you need to code it fast and correctly
 
-The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a `footer` or `cite` element, and optionally with in-line changes such as annotations and abbreviations.
+## The Bigger Picture
 
-### Blockquote without attribution
+Competitive programming isn't just about ratings and colored handles. It's about building a problem-solving mindset that serves you in every aspect of software engineering.
 
-#### Syntax
+When I work on my Spring Boot projects, the same mental model kicks in: decompose the problem, consider edge cases, think about efficiency, and iterate.
 
-```markdown
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.  
-> **Note** that you can use _Markdown syntax_ within a blockquote.
-```
-
-#### Output
-
-> Tiam, ad mint andaepu dandae nostion secatur sequo quae.  
-> **Note** that you can use _Markdown syntax_ within a blockquote.
-
-### Blockquote with attribution
-
-#### Syntax
-
-```markdown
-> Don't communicate by sharing memory, share memory by communicating.<br>
-> — <cite>Rob Pike[^1]</cite>
-```
-
-#### Output
-
-> Don't communicate by sharing memory, share memory by communicating.<br>
-> — <cite>Rob Pike[^1]</cite>
-
-[^1]: The above quote is excerpted from Rob Pike's [talk](https://www.youtube.com/watch?v=PAAkCSZUG1c) during Gopherfest, November 18, 2015.
-
-## Tables
-
-### Syntax
-
-```markdown
-| Italics   | Bold     | Code   |
-| --------- | -------- | ------ |
-| _italics_ | **bold** | `code` |
-```
-
-### Output
-
-| Italics   | Bold     | Code   |
-| --------- | -------- | ------ |
-| _italics_ | **bold** | `code` |
-
-## Code Blocks
-
-### Syntax
-
-we can use 3 backticks ``` in new line and write snippet and close with 3 backticks on new line and to highlight language specific syntax, write one word of language name after first 3 backticks, for eg. html, javascript, css, markdown, typescript, txt, bash
-
-````markdown
-```html
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Example HTML5 Document</title>
-  </head>
-  <body>
-    <p>Test</p>
-  </body>
-</html>
-```
-````
-
-### Output
-
-```html
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Example HTML5 Document</title>
-  </head>
-  <body>
-    <p>Test</p>
-  </body>
-</html>
-```
-
-## List Types
-
-### Ordered List
-
-#### Syntax
-
-```markdown
-1. First item
-2. Second item
-3. Third item
-```
-
-#### Output
-
-1. First item
-2. Second item
-3. Third item
-
-### Unordered List
-
-#### Syntax
-
-```markdown
-- List item
-- Another item
-- And another item
-```
-
-#### Output
-
-- List item
-- Another item
-- And another item
-
-### Nested list
-
-#### Syntax
-
-```markdown
-- Fruit
-  - Apple
-  - Orange
-  - Banana
-- Dairy
-  - Milk
-  - Cheese
-```
-
-#### Output
-
-- Fruit
-  - Apple
-  - Orange
-  - Banana
-- Dairy
-  - Milk
-  - Cheese
-
-## Other Elements — abbr, sub, sup, kbd, mark
-
-### Syntax
-
-```markdown
-<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
-
-H<sub>2</sub>O
-
-X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
-
-Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
-
-Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
-```
-
-### Output
-
-<abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.
-
-H<sub>2</sub>O
-
-X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
-
-Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
-
-Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
+**Start where you are. Solve what you can. Upsolve the rest. Stay consistent.**

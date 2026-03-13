@@ -1,11 +1,10 @@
 ---
-import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { SITE_TITLE } from '../../consts';
+import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -15,99 +14,76 @@ const posts = (await getCollection('blog')).sort(
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`Blog — ${SITE_TITLE}`} description="Thoughts on software engineering, DSA, system design, and more." />
 		<style>
-			main {
-				width: 960px;
+			.page-header {
+				margin-bottom: 2em;
 			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
+			.page-header h1 {
+				font-size: 2em;
+				margin-bottom: 0.25em;
+			}
+			.page-header p {
+				color: var(--text-muted);
+				font-size: 0.95em;
 				margin: 0;
+			}
+			.post-list {
+				list-style: none;
 				padding: 0;
+				margin: 0;
 			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
+			.post-link {
 				display: block;
+				padding: 1.25em 0;
+				border-bottom: 1px solid var(--border);
+				text-decoration: none;
+				transition: background-color var(--transition);
 			}
-			.title {
+			.post-link:first-child {
+				border-top: 1px solid var(--border);
+			}
+			.post-link:hover .post-title {
+				color: var(--accent);
+			}
+			.post-title {
+				font-size: 1.1em;
+				font-weight: 600;
+				color: var(--text);
+				margin: 0 0 0.3em;
+				transition: color var(--transition);
+			}
+			.post-meta {
+				font-size: 0.8em;
+				color: var(--text-light);
+				margin-bottom: 0.35em;
+			}
+			.post-desc {
+				font-size: 0.88em;
+				color: var(--text-muted);
 				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
+				line-height: 1.5;
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
+			<div class="page-header">
+				<h1>Blog</h1>
+				<p>Thoughts on software engineering, DSA, system design, and competitive programming.</p>
+			</div>
+			<div class="post-list">
+				{posts.map((post) => (
+					<a href={`/blog/${post.id}/`} class="post-link">
+						<h2 class="post-title">{post.data.title}</h2>
+						<div class="post-meta">
+							<FormattedDate date={post.data.pubDate} />
+						</div>
+						<p class="post-desc">{post.data.description}</p>
+					</a>
+				))}
+			</div>
 		</main>
 		<Footer />
 	</body>

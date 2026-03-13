@@ -1,63 +1,144 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`About — ${SITE_TITLE}`} description="Learn more about Bhavesh Panjala — CS graduate, Spring Boot developer, and DSA enthusiast." />
+		<style>
+			.about-header {
+				margin-bottom: 2em;
+			}
+			.about-header h1 {
+				font-size: 2em;
+				margin-bottom: 0.25em;
+			}
+			.about-header p {
+				color: var(--text-muted);
+				margin: 0;
+			}
+			.about-content {
+				line-height: 1.8;
+				color: var(--text);
+			}
+			.about-content p {
+				margin-bottom: 1.25em;
+			}
+			.about-content h2 {
+				font-size: 1.3em;
+				margin-top: 2em;
+				margin-bottom: 0.75em;
+				color: var(--text);
+			}
+			.skills-grid {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5em;
+				margin-bottom: 1.5em;
+			}
+			.skill-tag {
+				display: inline-block;
+				padding: 0.35em 0.85em;
+				background: var(--accent-light);
+				color: var(--accent);
+				border-radius: 20px;
+				font-size: 0.82em;
+				font-weight: 500;
+				border: 1px solid transparent;
+				transition: all var(--transition);
+			}
+			.skill-tag:hover {
+				border-color: var(--accent);
+			}
+			.profile-links {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5em;
+				margin-top: 1em;
+			}
+			.profile-links a {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4em;
+				padding: 0.45em 0.9em;
+				border: 1px solid var(--border);
+				border-radius: var(--radius);
+				color: var(--text-muted);
+				font-size: 0.85em;
+				font-weight: 500;
+				text-decoration: none;
+				transition: all var(--transition);
+			}
+			.profile-links a:hover {
+				color: var(--accent);
+				border-color: var(--accent);
+				background: var(--accent-light);
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="about-header">
+				<h1>About Me</h1>
+				<p>A little bit about who I am and what I do.</p>
+			</div>
+			<div class="about-content">
+				<p>
+					Hi, I'm <strong>Bhavesh Panjala</strong> — a Computer Science graduate with a passion for building
+					robust backend systems and solving complex algorithmic problems. I enjoy the intersection of
+					clean code, scalable architecture, and the thrill of competitive programming.
+				</p>
+				<p>
+					I primarily work with <strong>Java</strong> and <strong>Spring Boot</strong> to build REST APIs
+					and microservices. I'm fascinated by system design, particularly how large-scale distributed
+					systems handle millions of requests, manage consistency, and scale horizontally.
+				</p>
+				<p>
+					When I'm not building systems, you'll find me grinding problems on LeetCode and Codeforces —
+					sharpening my DSA skills and exploring new algorithmic techniques. I believe that strong
+					problem-solving fundamentals make better software engineers.
+				</p>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+				<h2>Technical Skills</h2>
+				<div class="skills-grid">
+					<span class="skill-tag">Java</span>
+					<span class="skill-tag">Spring Boot</span>
+					<span class="skill-tag">REST APIs</span>
+					<span class="skill-tag">Data Structures & Algorithms</span>
+					<span class="skill-tag">System Design</span>
+					<span class="skill-tag">Microservices</span>
+					<span class="skill-tag">SQL</span>
+					<span class="skill-tag">Git</span>
+					<span class="skill-tag">Problem Solving</span>
+					<span class="skill-tag">Competitive Programming</span>
+				</div>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
-
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
-
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+				<h2>Find Me Online</h2>
+				<div class="profile-links">
+					<a href="https://github.com/FlameZenith" target="_blank">
+						<svg viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+						GitHub
+					</a>
+					<a href="https://www.linkedin.com/in/bhavesh-panjala-a2488030a/" target="_blank">
+						<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+						LinkedIn
+					</a>
+					<a href="https://leetcode.com/u/bhaveshpanjala/" target="_blank">
+						<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>
+						LeetCode
+					</a>
+					<a href="https://codeforces.com/profile/Flame_Zenith" target="_blank">
+						<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M4.5 7.5C5.328 7.5 6 8.172 6 9v10.5c0 .828-.672 1.5-1.5 1.5h-3C.672 21 0 20.328 0 19.5V9c0-.828.672-1.5 1.5-1.5h3zm9-4.5c.828 0 1.5.672 1.5 1.5v15c0 .828-.672 1.5-1.5 1.5h-3c-.828 0-1.5-.672-1.5-1.5v-15c0-.828.672-1.5 1.5-1.5h3zm9 7.5c.828 0 1.5.672 1.5 1.5v7.5c0 .828-.672 1.5-1.5 1.5h-3c-.828 0-1.5-.672-1.5-1.5V12c0-.828.672-1.5 1.5-1.5h3z"/></svg>
+						Codeforces
+					</a>
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

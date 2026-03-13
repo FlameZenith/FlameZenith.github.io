@@ -1,16 +1,120 @@
 ---
-title: 'Second post'
-description: 'Lorem ipsum dolor sit amet'
-pubDate: 'Jul 15 2022'
-heroImage: '../../assets/blog-placeholder-4.jpg'
+title: 'Building REST APIs with Spring Boot: A Practical Guide'
+description: 'A hands-on guide to building clean, production-ready REST APIs with Spring Boot — covering project structure, best practices, and common patterns.'
+pubDate: 'Mar 05 2026'
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+Spring Boot makes building Java-based REST APIs remarkably productive. But there's a difference between a working API and a **well-structured, maintainable** one. Here's what I've learned from building APIs in production.
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+## Project Structure That Scales
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+A clean project structure is the foundation of maintainable code. Here's the layered architecture I follow:
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+```
+src/main/java/com/example/app/
+├── controller/       # REST endpoints
+├── service/          # Business logic
+├── repository/       # Data access (JPA)
+├── model/
+│   ├── entity/       # Database entities
+│   ├── dto/          # Data transfer objects
+│   └── mapper/       # Entity ↔ DTO mappers
+├── exception/        # Custom exceptions + global handler
+├── config/           # Security, CORS, etc.
+└── util/             # Helpers and constants
+```
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+Each layer has a clear responsibility. Controllers handle HTTP concerns. Services contain business logic. Repositories talk to the database. **Never let a controller call a repository directly.**
+
+## Writing Clean Controllers
+
+A controller should be thin — just route the request, validate input, and delegate to the service layer:
+
+```java
+@RestController
+@RequestMapping("/api/v1/users")
+@RequiredArgsConstructor
+public class UserController {
+
+    private final UserService userService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.findById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDTO> createUser(
+            @Valid @RequestBody CreateUserRequest request) {
+        UserDTO created = userService.create(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+}
+```
+
+Key practices:
+- **Use DTOs**, never expose entities directly
+- **Version your API** (`/api/v1/...`)
+- **Use proper HTTP status codes** — 201 for creation, 204 for deletion, 404 for not found
+- **Validate input** with `@Valid` and Bean Validation annotations
+
+## Global Exception Handling
+
+Don't scatter try-catch blocks everywhere. Use a `@RestControllerAdvice` for centralized error handling:
+
+```java
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(
+            ResourceNotFoundException ex) {
+        ErrorResponse error = new ErrorResponse(
+            HttpStatus.NOT_FOUND.value(),
+            ex.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleValidation(
+            MethodArgumentNotValidException ex) {
+        String message = ex.getBindingResult()
+            .getFieldErrors()
+            .stream()
+            .map(e -> e.getField() + ": " + e.getDefaultMessage())
+            .collect(Collectors.joining(", "));
+        ErrorResponse error = new ErrorResponse(
+            HttpStatus.BAD_REQUEST.value(), message
+        );
+        return ResponseEntity.badRequest().body(error);
+    }
+}
+```
+
+## Pagination Done Right
+
+For list endpoints, always support pagination:
+
+```java
+@GetMapping
+public ResponseEntity<Page<UserDTO>> getUsers(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "20") int size,
+        @RequestParam(defaultValue = "createdAt") String sortBy) {
+    Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).descending());
+    return ResponseEntity.ok(userService.findAll(pageable));
+}
+```
+
+Spring Data's `Page` object automatically includes metadata like total pages, total elements, and navigation info.
+
+## Essential Practices
+
+1. **Use profiles** — `application-dev.yml`, `application-prod.yml` for environment-specific config
+2. **Externalize secrets** — never hardcode database passwords or API keys
+3. **Add health checks** — Spring Actuator gives you `/health`, `/info`, `/metrics` for free
+4. **Write integration tests** — use `@SpringBootTest` with `TestRestTemplate` or `MockMvc`
+5. **Document your API** — SpringDoc/OpenAPI generates Swagger docs automatically
+
+Spring Boot gives you a lot out of the box. The art is in keeping things simple, layered, and consistent. **Your future self will thank you.**
