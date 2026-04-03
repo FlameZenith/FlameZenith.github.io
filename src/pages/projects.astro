@@ -1,0 +1,140 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+
+const projects = [
+	{
+		title: 'E-Commerce Microservices Platform',
+		description: 'A production-style microservices architecture with 5 Spring Boot services, Eureka service discovery, API Gateway, and inter-service communication using OpenFeign. Includes a React dashboard for managing products, orders, and users.',
+		tech: ['Spring Boot', 'Spring Cloud', 'Eureka', 'OpenFeign', 'API Gateway', 'React', 'H2'],
+		github: 'https://github.com/FlameZenith/ecommerce-microservices-springboot',
+	},
+	{
+		title: 'Hospital Management System',
+		description: 'A full-stack modular monolith for hospital operations — patient registration, appointment scheduling, and billing. Built with clean module boundaries that allow easy extraction to microservices.',
+		tech: ['Spring Boot', 'Spring Data JPA', 'React', 'Vite', 'H2', 'REST API'],
+		github: 'https://github.com/FlameZenith/hospital-management-system',
+	},
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Projects — ${SITE_TITLE}`} description="Projects built by Bhavesh Panjala — Spring Boot microservices, full-stack applications, and more." />
+		<style>
+			.page-header {
+				margin-bottom: 2em;
+			}
+			.page-header h1 {
+				font-size: 2em;
+				margin-bottom: 0.25em;
+			}
+			.page-header p {
+				color: var(--text-muted);
+				margin: 0;
+			}
+			.projects-grid {
+				display: flex;
+				flex-direction: column;
+				gap: 1.5em;
+			}
+			.project-card {
+				border: 1px solid var(--border);
+				border-radius: var(--radius-lg);
+				padding: 1.5em;
+				transition: border-color var(--transition), box-shadow var(--transition);
+			}
+			.project-card:hover {
+				border-color: var(--accent);
+				box-shadow: var(--shadow-md);
+			}
+			.project-card h2 {
+				font-size: 1.2em;
+				margin: 0 0 0.5em;
+			}
+			.project-card h2 a {
+				color: var(--text);
+				text-decoration: none;
+				transition: color var(--transition);
+			}
+			.project-card h2 a:hover {
+				color: var(--accent);
+			}
+			.project-desc {
+				color: var(--text-muted);
+				font-size: 0.9em;
+				line-height: 1.7;
+				margin: 0 0 1em;
+			}
+			.tech-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.4em;
+				margin-bottom: 1em;
+			}
+			.tech-tag {
+				display: inline-block;
+				padding: 0.25em 0.7em;
+				background: var(--accent-light);
+				color: var(--accent);
+				border-radius: 20px;
+				font-size: 0.78em;
+				font-weight: 500;
+			}
+			.project-links {
+				display: flex;
+				gap: 0.75em;
+			}
+			.project-links a {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.35em;
+				padding: 0.4em 0.8em;
+				border: 1px solid var(--border);
+				border-radius: var(--radius);
+				color: var(--text-muted);
+				font-size: 0.82em;
+				font-weight: 500;
+				text-decoration: none;
+				transition: all var(--transition);
+			}
+			.project-links a:hover {
+				color: var(--accent);
+				border-color: var(--accent);
+				background: var(--accent-light);
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="page-header">
+				<h1>Projects</h1>
+				<p>Things I have built and worked on.</p>
+			</div>
+			<div class="projects-grid">
+				{projects.map((project) => (
+					<div class="project-card">
+						<h2><a href={project.github} target="_blank">{project.title}</a></h2>
+						<p class="project-desc">{project.description}</p>
+						<div class="tech-tags">
+							{project.tech.map((t) => (
+								<span class="tech-tag">{t}</span>
+							))}
+						</div>
+						<div class="project-links">
+							<a href={project.github} target="_blank">
+								<svg viewBox="0 0 16 16" width="14" height="14"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+								Source Code
+							</a>
+						</div>
+					</div>
+				))}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
